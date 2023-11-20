@@ -1,0 +1,92 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#street-view {
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+}
+#a:hover {
+  cursor: pointer;
+}
+#guess {
+  position: absolute;
+  right: 0;
+  z-index: 100;
+  border-radius: 1rem;
+  bottom: 0;
+  margin: 3.5%;
+}
+#map-sat {
+  height: 100%;
+  width: 100%;
+}
+#show {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  margin: 3.5%;
+}
+
+#guess {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.button-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+#guess-btn {
+  width: 75%;
+  height: 100%;
+  color: white;
+  border-radius: 2rem;
+  background-color: rgb(12, 170, 12);
+  border: none;
+  transition: 1s ease;
+}
+#guess-btn:hover {
+  background-color: rgb(1, 133, 1);
+  cursor: pointer;
+}
+#completeLevel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 35%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  border-radius: 3rem;
+  background-color: white;
+  z-index: 1000;
+  margin: auto;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+  <head>
+    <title>GeoGuessr Clone</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./hide.js" async></script>
+
+    <!-- jsFiddle will insert css and js -->
+  </head>
+  <body>
+    <div id="street-view"></div>
+    <button id="show" type="button" onclick="showMap()" style="display: none">
+      Showasdasdasdsa
+    </button>
+    <div id="guess">
+      <button id="in" type="button" onclick="zoomIn();">+</button>
+      <button id="out" type="button" onclick="zoomOut()">-</button>
+      <button id="hide" type="button" onclick="hideMap()">hide</button>
+
+      <div id="map-sat">
+        <div id="map"></div>
+        <div class="button-container">
+          <button type="button" id="guess-btn">Guess</button>
+        </div>
+      </div>
+    </div>
+    <div id="completeLevel">Level Complete</div>
+    <!-- 
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script src="./mapsJavaScriptAPI.js" async defer></script>
+
+    <script src="./getLoc.js"></script>
+  </body>
+</html>
