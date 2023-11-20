@@ -2,6 +2,7 @@ let panorama;
 var map;
 var overlay = document.getElementById("overlay");
 var ui = document.getElementById("ui");
+var guess = document.getElementById("guess");
 var guessCont = document.getElementById("button-wrapper");
 var guessbtn = document.getElementById("guess-btn");
 var completeDiv = document.getElementById("completeLevel");
@@ -15,7 +16,6 @@ function levelComplete() {
   guess.style.margin = "0";
   tools.style.display = "none";
   guessbtn.style.display = "none";
-
   completeDiv.style.display = "flex";
 }
 var currentCordsLat, currentCordsLng;
