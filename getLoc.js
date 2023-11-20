@@ -1,5 +1,6 @@
 let panorama;
 var map;
+var overlay = document.getElementById("overlay");
 var guessbtn = document.getElementById("guess-btn");
 guessbtn.style.display = "none";
 function levelComplete() {
@@ -13,6 +14,8 @@ function levelComplete() {
   hide.style.display = "none";
   zoomIn.style.display = "none";
   zoomOut.style.display = "none";
+  completeDiv.style.display = "flex";
+  guessbtn.style.display = "none";
 }
 function checkDistance() {
   var lat1 = guessMarker.position.lat();
@@ -47,7 +50,7 @@ function initMap(data, status) {
   if (status == google.maps.StreetViewStatus.OK) {
     console.log("EE " + data.location.latLng.toUrlValue(6));
     console.log(data);
-
+    overlay.style.display = "none";
     const panorama = new google.maps.StreetViewPanorama(
       document.getElementById("street-view"),
       {
@@ -95,16 +98,17 @@ function initMap(data, status) {
     // TRUE LOCATION
   });
   guessbtn.addEventListener("click", () => {
+    targetLatLng = data.location.latLng;
+
     map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 7,
+      zoom: 5,
       maxZoom: 10,
       minZoom: 2,
-      center: guessLatLng,
+      center: targetLatLng,
       streetViewControl: false,
       zoomControl: false,
       mapTypeControl: false,
     });
-    targetLatLng = data.location.latLng;
     targetMarker = new google.maps.Marker({
       position: targetLatLng,
       title: "True Location",
@@ -116,7 +120,6 @@ function initMap(data, status) {
     });
     marker = new google.maps.Marker({
       position: guessLatLng,
-
       map,
     });
     targetMarker.setMap(map);

@@ -14,9 +14,10 @@
     <!-- jsFiddle will insert css and js -->
   </head>
   <body>
+    <div id="overlay"><h1>Loading Map</h1></div>
     <div id="street-view"></div>
     <button id="show" type="button" onclick="showMap()" style="display: none">
-      Showasdasdasdsa
+      Show
     </button>
     <div id="guess">
       <button id="in" type="button" onclick="zoomIn();">+</button>
@@ -30,7 +31,10 @@
         </div>
       </div>
     </div>
-    <div id="completeLevel">Level Complete</div>
+    <div id="completeLevel">
+      <h1>Level Complete</h1>
+      <button onClick="window.location.reload();">Next</button>
+    </div>
     <!-- 
       The `defer` attribute causes the callback to execute after the full HTML
       document has been parsed. For non-blocking uses, avoiding race conditions,
@@ -38,7 +42,7 @@
       See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
       for more information.
       -->
-    <script src="./mapsJavaScriptAPI.js" async defer></script>
+    <script async src="./mapsJavaScriptAPI.js"></script>
 
     <script src="./getLoc.js"></script>
   </body>
