@@ -8,10 +8,16 @@
   <head>
     <title>GeoSpy</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
     <!-- jsFiddle will insert css and js -->
   </head>
   <body>
+    <audio id="audio-button" src="./assets/audios/button.mp3" preload="auto">
+      Your browser does not support the <code>audio</code> element.
+    </audio>
+    <audio id="audio-collect" src="./assets/audios/collect.mp3" preload="auto">
+      Your browser does not support the <code>audio</code> element.
+    </audio>
     <div id="game">
       <div id="ui">
         <div id="playerScoreDiv" class="details">
@@ -76,7 +82,11 @@
           <div class="wrapper-btn">
             <div class="button-overlay"></div>
             <button class="menu-btns">
-              <a class="btn" href="https://www.geoguessr.com/" target="_blank"
+              <a
+                class="btn"
+                id="geoGuessr"
+                href="https://www.geoguessr.com/"
+                target="_blank"
                 >Check GeoGuessr</a
               >
             </button>
@@ -84,6 +94,7 @@
         </div>
       </div>
     </div>
+
     <!-- 
       The `defer` attribute causes the callback to execute after the full HTML
       document has been parsed. For non-blocking uses, avoiding race conditions,
@@ -91,6 +102,6 @@
       See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
       for more information.
       -->
-    <script src="./assets/play.js"></script>
+    <script src="./src/js/play.js"></script>
   </body>
 </html>
