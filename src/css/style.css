@@ -255,7 +255,9 @@ a {
   border: none;
   user-select: none;
 }
-
+.gm-iv-address {
+  display: none;
+}
 .btn:hover {
   color: rgb(235, 228, 228);
   cursor: pointer;
