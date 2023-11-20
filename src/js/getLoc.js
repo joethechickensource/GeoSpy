@@ -13,10 +13,10 @@ function levelComplete() {
   guess.style.height = "100vh";
   guess.style.width = "100vw";
   guess.style.margin = "0";
-
   tools.style.display = "none";
-  completeDiv.style.display = "flex";
   guessbtn.style.display = "none";
+
+  completeDiv.style.display = "flex";
 }
 var currentCordsLat, currentCordsLng;
 function checkDistance() {
@@ -64,6 +64,7 @@ function defaultSetting() {
   tools.style.display = "flex";
   guess.style.height = "25vh";
   guess.style.width = "20vw";
+  guessbtn.style.display = "bloock";
   guessCont.style.display = "none";
   guess.style.margin = "3.5%";
   overlay.style.display = "flex";
@@ -136,11 +137,11 @@ function initMap(data, status) {
   // YOUR GUESS MARKER
   var set = true;
   map.addListener("click", (mapsMouseEvent) => {
+    guessCont.style.display = "flex";
     if (played === true) {
       return;
     }
     if (set == true) {
-      guessCont.style.display = "flex";
       guessLatLng = new google.maps.LatLng(
         mapsMouseEvent.latLng.lat(),
         mapsMouseEvent.latLng.lng()
