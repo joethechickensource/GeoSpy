@@ -104,7 +104,7 @@ function initMap(data, status) {
       zoomControl: false,
       mapTypeControl: false,
     });
-    targetLatLng = new google.maps.LatLng(37.86926, -122.254811);
+    targetLatLng = data.location.latLng;
     targetMarker = new google.maps.Marker({
       position: targetLatLng,
       title: "True Location",
