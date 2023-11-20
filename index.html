@@ -6,7 +6,7 @@
 -->
 <html>
   <head>
-    <title>Where Am i?</title>
+    <title>GeoSpy</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="style.css" />
     <!-- jsFiddle will insert css and js -->
@@ -43,7 +43,7 @@
 
         <div id="map-sat">
           <div id="map"></div>
-          <div class="button-container">
+          <div class="button-container" id="button-wrapper">
             <button type="button" id="guess-btn">Guess</button>
           </div>
         </div>
@@ -57,18 +57,30 @@
       </div>
     </div>
     <div id="menu">
-      <h1 class="title">Where Am I?</h1>
-      <p class="details">A GeoGuessr Clone</p>
+      <div id="menu-overlay"></div>
+      <div id="menu-img"></div>
+      <h1 class="title font-game">GeoSpy</h1>
+      <p class="details poppins">A GeoGuessr Clone</p>
       <div id="box">
         <div id="button-cont">
-          <button class="menu-btns btn" id="play" onclick="playGame()">
-            Play
-          </button>
-          <button class="menu-btns">
-            <a class="btn" href="https://www.geoguessr.com/" target="_blank"
-              >Check GeoGuessr</a
+          <div class="wrapper-btn">
+            <div class="button-overlay"></div>
+            <button
+              class="menu-btns btn font-game"
+              id="play"
+              onclick="playGame()"
             >
-          </button>
+              Play
+            </button>
+          </div>
+          <div class="wrapper-btn">
+            <div class="button-overlay"></div>
+            <button class="menu-btns">
+              <a class="btn" href="https://www.geoguessr.com/" target="_blank"
+                >Check GeoGuessr</a
+              >
+            </button>
+          </div>
         </div>
       </div>
     </div>

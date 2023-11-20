@@ -2,13 +2,13 @@ let panorama;
 var map;
 var overlay = document.getElementById("overlay");
 var ui = document.getElementById("ui");
+var guessCont = document.getElementById("button-wrapper");
 var guessbtn = document.getElementById("guess-btn");
 var completeDiv = document.getElementById("completeLevel");
 var next = document.getElementById("next");
 var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
-guessbtn.style.display = "none";
 function levelComplete() {
   guess.style.height = "100vh";
   guess.style.width = "100vw";
@@ -64,6 +64,7 @@ function defaultSetting() {
   tools.style.display = "flex";
   guess.style.height = "25vh";
   guess.style.width = "20vw";
+  guessCont.style.display = "none";
   guess.style.margin = "3.5%";
   overlay.style.display = "flex";
   completeDiv.style.display = "none";
@@ -138,7 +139,7 @@ function initMap(data, status) {
       return;
     }
     if (set == true) {
-      guessbtn.style.display = "block";
+      guessCont.style.display = "flex";
       guessLatLng = new google.maps.LatLng(
         mapsMouseEvent.latLng.lat(),
         mapsMouseEvent.latLng.lng()
