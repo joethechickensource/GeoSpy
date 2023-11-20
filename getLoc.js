@@ -57,7 +57,7 @@ function initMap(data, status) {
         position: data.location.latLng,
         pov: {
           heading: 315,
-          pitch: 10,
+          pitch: 1,
         },
         disableDefaultUI: true,
       }
