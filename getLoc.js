@@ -57,7 +57,7 @@ function initMap(data, status) {
         position: data.location.latLng,
         pov: {
           heading: 315,
-          pitch: 1,
+          pitch: 0,
         },
         disableDefaultUI: true,
       }
@@ -84,19 +84,25 @@ function initMap(data, status) {
   });
   myinfowindow.open(map);
   // YOUR GUESS MARKER
+  var set = true;
   map.addListener("click", (mapsMouseEvent) => {
-    guessbtn.style.display = "block";
-    guessLatLng = new google.maps.LatLng(
-      mapsMouseEvent.latLng.lat(),
-      mapsMouseEvent.latLng.lng()
-    );
-    guessMarker = new google.maps.Marker({
-      position: mapsMouseEvent.latLng,
-    });
-
-    guessMarker.setMap(map);
-    // TRUE LOCATION
+    if (set == true) {
+      guessbtn.style.display = "block";
+      guessLatLng = new google.maps.LatLng(
+        mapsMouseEvent.latLng.lat(),
+        mapsMouseEvent.latLng.lng()
+      );
+      guessMarker = new google.maps.Marker({
+        position: mapsMouseEvent.latLng,
+      });
+      guessMarker.setMap(map);
+      set = false;
+    } else {
+      guessMarker.setMap(null);
+      set = true;
+    }
   });
+  // TRUE LOCATION
   guessbtn.addEventListener("click", () => {
     targetLatLng = data.location.latLng;
 
