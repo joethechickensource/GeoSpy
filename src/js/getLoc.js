@@ -108,10 +108,10 @@ function initMap(data, status) {
           zoom: 0,
         },
         showRoadLabels: false,
-        disableDefaultUI: true,
       }
     );
   } else generateRandomPoint(initMap);
+
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 2,
     maxZoom: 10,
