@@ -62,8 +62,8 @@ function defaultSetting() {
   show.style.display = "none";
   ui.style.display = "none";
   tools.style.display = "flex";
-  guess.style.height = "25vh";
-  guess.style.width = "20vw";
+  guess.style.height = "40vh";
+  guess.style.width = "35vw";
   guessbtn.style.display = "block";
   guessCont.style.display = "none";
   guess.style.margin = "3.5%";

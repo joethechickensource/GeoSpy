@@ -1,7 +1,7 @@
 var guess = document.getElementById("guess");
 
-guess.style.height = "25vh";
-guess.style.width = "20vw";
+guess.style.height = "40vh";
+guess.style.width = "35vw";
 
 function zoomIn() {
   guess.style.height = guess.offsetHeight + 100 + "px";
