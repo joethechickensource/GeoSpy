@@ -1,1 +1,1 @@
-# Where Am I ? (GeoGuessr Clone)
+# GeoSpy ? (GeoGuessr Clone)
