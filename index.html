@@ -9,31 +9,68 @@
     <title>GeoGuessr Clone</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="style.css" />
-    <script src="./hide.js" async></script>
-
     <!-- jsFiddle will insert css and js -->
   </head>
   <body>
-    <div id="overlay"><h1>Loading Map</h1></div>
-    <div id="street-view"></div>
-    <button id="show" type="button" onclick="showMap()" style="display: none">
-      Show
-    </button>
-    <div id="guess">
-      <button id="in" type="button" onclick="zoomIn();">+</button>
-      <button id="out" type="button" onclick="zoomOut()">-</button>
-      <button id="hide" type="button" onclick="hideMap()">hide</button>
-
-      <div id="map-sat">
-        <div id="map"></div>
-        <div class="button-container">
-          <button type="button" id="guess-btn">Guess</button>
+    <div id="game">
+      <div id="ui">
+        <div id="playerScoreDiv" class="details">
+          Your Score: <span id="playerScore">0</span>
         </div>
       </div>
+      <div id="overlay"><h1>Loading Map</h1></div>
+      <div id="street-view"></div>
+      <button class="btn-tools" id="show" type="button" onclick="showHide()">
+        <img src="./assets/svg/expand.svg" alt="" srcset="" height="20" />
+      </button>
+      <div id="guess">
+        <div id="tools">
+          <button class="btn-tools" id="in" type="button" onclick="zoomIn();">
+            <img src="./assets/svg/zoomin.svg" alt="" srcset="" height="20" />
+          </button>
+          <button class="btn-tools" id="out" type="button" onclick="zoomOut()">
+            <img src="./assets/svg/zoomout.svg" alt="" srcset="" height="20" />
+          </button>
+          <button
+            class="btn-tools"
+            id="hide"
+            type="button"
+            onclick="showHide()"
+          >
+            <img src="./assets/svg/collapse.svg" alt="" srcset="" height="20" />
+          </button>
+        </div>
+
+        <div id="map-sat">
+          <div id="map"></div>
+          <div class="button-container">
+            <button type="button" id="guess-btn">Guess</button>
+          </div>
+        </div>
+      </div>
+      <div id="completeLevel">
+        <h1 class="title black">Level Complete</h1>
+        <h2 class="details">
+          <span id="score">123</span> away from the correct location
+        </h2>
+        <button id="next">Next</button>
+      </div>
     </div>
-    <div id="completeLevel">
-      <h1>Level Complete</h1>
-      <button onClick="window.location.reload();">Next</button>
+    <div id="menu">
+      <h1 class="title">Where Am I?</h1>
+      <p class="details">A GeoGuessr Clone</p>
+      <div id="box">
+        <div id="button-cont">
+          <button class="menu-btns btn" id="play" onclick="playGame()">
+            Play
+          </button>
+          <button class="menu-btns">
+            <a class="btn" href="https://www.geoguessr.com/" target="_blank"
+              >Check GeoGuessr</a
+            >
+          </button>
+        </div>
+      </div>
     </div>
     <!-- 
       The `defer` attribute causes the callback to execute after the full HTML
@@ -42,8 +79,6 @@
       See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
       for more information.
       -->
-    <script async src="./mapsJavaScriptAPI.js"></script>
-
-    <script src="./getLoc.js"></script>
+    <script src="./assets/play.js"></script>
   </body>
 </html>
