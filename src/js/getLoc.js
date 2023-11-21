@@ -86,7 +86,7 @@ function generateRandomPoint(callback) {
   var sv = new google.maps.StreetViewService();
   sv.getPanoramaByLocation(
     new google.maps.LatLng(Math.random() * 180 - 90, Math.random() * 360 - 180),
-    5000,
+    6371,
     callback
   );
 }
