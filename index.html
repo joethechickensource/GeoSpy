@@ -67,14 +67,14 @@
       <div id="menu-img"></div>
       <h1 class="title font-game">GeoSpy</h1>
       <p class="details poppins">A GeoGuessr Clone</p>
-      <div id="box">
+      <div class="box" id="init-menu">
         <div id="button-cont">
           <div class="wrapper-btn">
             <div class="button-overlay"></div>
             <button
               class="menu-btns btn font-game"
               id="play"
-              onclick="playGame()"
+              onclick="clickPlay()"
             >
               Play
             </button>
@@ -89,6 +89,26 @@
                 target="_blank"
                 >Check GeoGuessr</a
               >
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="box" id="game-mode">
+        <div id="button-cont">
+          <div class="wrapper-btn">
+            <div class="button-overlay"></div>
+            <button class="menu-btns btn font-game" id="phBtn" onclick="ph()">
+              Philippines
+            </button>
+          </div>
+          <div class="wrapper-btn">
+            <div class="button-overlay"></div>
+            <button
+              class="menu-btns btn font-game"
+              id="worldBtn"
+              onclick="world()"
+            >
+              World
             </button>
           </div>
         </div>

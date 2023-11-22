@@ -212,7 +212,7 @@ body {
   font-size: 5rem;
   letter-spacing: 10px;
 }
-#box {
+.box {
   width: 25%;
   height: 50%;
   border-radius: 1rem;
@@ -221,6 +221,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  transition: 1s ease;
 }
 #button-cont {
   display: flex;
@@ -231,7 +232,7 @@ body {
   align-items: flex-start;
 }
 
-#box .menu-btns {
+.box .menu-btns {
   width: max-content;
   height: 50px;
   background-color: transparent;
@@ -302,5 +303,10 @@ a {
   border: none;
   justify-content: center;
   align-items: center;
+  transition: 1s ease;
+}
+
+#game-mode {
+  display: none;
   transition: 1s ease;
 }
