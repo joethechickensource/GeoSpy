@@ -10,14 +10,9 @@ var next = document.getElementById("next");
 var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
-function levelComplete() {
-  guess.style.height = "100vh";
-  guess.style.width = "100vw";
-  guess.style.margin = "0";
-  tools.style.display = "none";
-  guessbtn.style.display = "none";
-  completeDiv.style.display = "flex";
-}
+var round = 1;
+document.getElementById("mapname").innerHTML = "World";
+
 var currentCordsLat, currentCordsLng;
 function checkDistance() {
   var lat1 = guessMarker.position.lat();
@@ -41,7 +36,14 @@ function checkDistance() {
 function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
-
+function levelComplete() {
+  guess.style.height = "100vh";
+  guess.style.width = "100vw";
+  guess.style.margin = "0";
+  tools.style.display = "none";
+  guessbtn.style.display = "none";
+  completeDiv.style.display = "flex";
+}
 function showHide() {
   var x = document.getElementById("map");
   var tools = document.getElementById("tools");
@@ -90,124 +92,145 @@ function generateRandomPoint(callback) {
     callback
   );
 }
-let locations = [];
+var marked = false;
 function initMap(data, status) {
-  if (status == google.maps.StreetViewStatus.OK) {
-    currentCordsLat = data.location.latLng.lat();
-    currentCordsLng = data.location.latLng.lng();
-    overlay.style.display = "none";
-    ui.style.display = "flex";
-    console.clear();
-    const panorama = new google.maps.StreetViewPanorama(
-      document.getElementById("street-view"),
-      {
-        position: data.location.latLng,
-        pov: {
-          heading: 0,
-          pitch: 0,
-          zoom: 0,
-        },
-        showRoadLabels: false,
-      }
-    );
-  } else generateRandomPoint(initMap);
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 2,
-    maxZoom: 10,
-    minZoom: 2,
-    center: { lat: 0, lng: 0 },
-
-    streetViewControl: false,
-    zoomControl: false,
-    mapTypeControl: false,
-  });
-  map.setOptions({ draggableCursor: "crosshair" });
-  const myinfowindow = new google.maps.InfoWindow({});
-  var marker = new google.maps.Marker({
-    map,
-  });
-  marker.addListener("click", () => {
-    infowindow.open({
-      anchor: marker,
-      map,
-    });
-  });
-  myinfowindow.open(map);
-  // YOUR GUESS MARKER
-  var set = true;
-  map.addListener("click", (mapsMouseEvent) => {
-    guessCont.style.display = "flex";
-    if (played === true) {
-      return;
-    }
-    if (set == true) {
-      guessLatLng = new google.maps.LatLng(
-        mapsMouseEvent.latLng.lat(),
-        mapsMouseEvent.latLng.lng()
+  if (round <= 5) {
+    document.getElementById("round").innerHTML = "" + round + "/5";
+    if (status == google.maps.StreetViewStatus.OK) {
+      currentCordsLat = data.location.latLng.lat();
+      currentCordsLng = data.location.latLng.lng();
+      overlay.style.display = "none";
+      ui.style.display = "flex";
+      console.clear();
+      const panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("street-view"),
+        {
+          position: data.location.latLng,
+          pov: {
+            heading: 0,
+            pitch: 0,
+            zoom: 0,
+          },
+          showRoadLabels: false,
+        }
       );
-      guessMarker = new google.maps.Marker({
-        position: mapsMouseEvent.latLng,
-      });
-      guessMarker.setMap(map);
-      set = false;
-    } else {
-      guessMarker.setMap(null);
-      set = true;
-    }
-  });
+    } else generateRandomPoint(initMap);
 
-  // TRUE LOCATION
-  guessbtn.addEventListener("click", () => {
-    targetLatLng = data.location.latLng;
     map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 3,
+      zoom: 2,
       maxZoom: 10,
       minZoom: 2,
-      center: targetLatLng,
+      center: { lat: 0, lng: 0 },
       streetViewControl: false,
-      zoomControl: false,
+      showRoadLabels: false,
+      zoomControl: true,
       mapTypeControl: false,
     });
-    targetMarker = new google.maps.Marker({
-      position: targetLatLng,
-      title: "True Location",
-      draggable: false,
-      icon: {
-        url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-      },
-      anchor: new google.maps.Point(15, 15),
-    });
-    marker = new google.maps.Marker({
-      position: guessLatLng,
+    map.setOptions({ draggableCursor: "crosshair" });
+    const myinfowindow = new google.maps.InfoWindow({});
+    var marker = new google.maps.Marker({
       map,
     });
-    targetMarker.setMap(map);
-    distance = checkDistance();
-    var score = (document.getElementById("score").innerHTML =
-      Math.floor(distance) + "km");
-
-    // playerScore += (5000 * 0.99866017) ^ ((10 * distance) / 14916.862);
-
-    // var playerScoreHTML = (document.getElementById("playerScore").innerHTML =
-    //   playerScore + "");
-    lineCoordinates = [targetLatLng, guessLatLng];
-    linePath = new google.maps.Polyline({
-      path: lineCoordinates,
-      geodesic: true,
-      strokeColor: "#FF0000",
-      strokeOpacity: 1.0,
-      strokeWeight: 2,
+    marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        map,
+      });
+      marked = true;
+    });
+    myinfowindow.open(map);
+    // YOUR GUESS MARKER
+    var set = true;
+    map.addListener("click", (mapsMouseEvent) => {
+      guessCont.style.display = "flex";
+      if (played === true) {
+        return;
+      }
+      if (set == true) {
+        guessLatLng = new google.maps.LatLng(
+          mapsMouseEvent.latLng.lat(),
+          mapsMouseEvent.latLng.lng()
+        );
+        guessMarker = new google.maps.Marker({
+          position: mapsMouseEvent.latLng,
+        });
+        guessMarker.setMap(map);
+        set = false;
+        marked = true;
+      } else {
+        guessMarker.setMap(null);
+        set = true;
+        marked = false;
+      }
     });
 
-    levelComplete();
-    linePath.setMap(map);
+    // TRUE LOCATION
+    guessbtn.addEventListener("click", () => {
+      if (marked == true) {
+        targetLatLng = data.location.latLng;
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 3,
+          maxZoom: 10,
+          minZoom: 2,
+          center: targetLatLng,
+          streetViewControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+        });
+        targetMarker = new google.maps.Marker({
+          position: targetLatLng,
+          title: "True Location",
+          draggable: false,
+          icon: {
+            url: "../../../assets/imgs/3.png",
+          },
+          anchor: new google.maps.Point(15, 15),
+        });
+        marker = new google.maps.Marker({
+          position: guessLatLng,
+          map,
+        });
+        targetMarker.setMap(map);
+        distance = checkDistance();
+        if (Math.floor(distance) == 0) {
+          var yards = Math.round(distance * 1093);
+          document.getElementById("score").innerHTML = yards + " yards";
+        } else {
+          document.getElementById("score").innerHTML =
+            Math.floor(distance) + " km";
+        }
+        var points = Math.round(
+          5000 * 0.998036 * Math.exp((-10 * distance) / 40000)
+        );
+        if (points < 0) {
+          points = 0;
+        } else if (Math.floor(distance) <= 0) {
+          points = 5000;
+        }
 
-    played = true;
-    next.value = "Next";
+        lineCoordinates = [targetLatLng, guessLatLng];
+        linePath = new google.maps.Polyline({
+          path: lineCoordinates,
+          geodesic: true,
+          strokeColor: "#FF0000",
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+        });
 
-    next.onclick = function () {
-      playagain();
-    };
-  });
+        levelComplete();
+        linePath.setMap(map);
+        document.getElementById("playerScore").innerHTML = "" + points;
+        played = true;
+        next.value = "Next";
+
+        next.onclick = function () {
+          round++;
+          playerScore += points;
+          playagain();
+        };
+      }
+    });
+  } else {
+    window.location.reload();
+  }
 }

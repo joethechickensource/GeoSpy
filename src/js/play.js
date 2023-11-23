@@ -30,7 +30,7 @@ function world() {
   document.documentElement.lastChild.appendChild(googleAPI);
 
   getLoc = document.createElement("script");
-  getLoc.src = "./src/js/maps/getLoc.js";
+  getLoc.src = "./src/js/maps/randomWorld.js";
   document.documentElement.lastChild.appendChild(getLoc);
 
   mechanics = document.createElement("script");
