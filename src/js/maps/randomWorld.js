@@ -182,7 +182,7 @@ function initMap(data, status) {
           title: "True Location",
           draggable: false,
           icon: {
-            url: "../../../assets/imgs/targetMarker.png",
+            url: "/assets/imgs/targetMarker.png",
           },
           anchor: new google.maps.Point(15, 15),
         });
