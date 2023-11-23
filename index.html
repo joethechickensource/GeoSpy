@@ -8,7 +8,7 @@
   <head>
     <title>GeoSpy</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" href="./src/css/style.css" />
+    <link rel="stylesheet" href="./src/css/style.css?version=2" />
     <link rel="icon" href="./assets/imgs/logo.png " />
     <!-- jsFiddle will insert css and js -->
   </head>
@@ -151,5 +151,11 @@
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
     ></script>
+    <script>
+      function randomVer() {
+        var number = Math.floor(Math.random() * 1000000000);
+        return number;
+      }
+    </script>
   </body>
 </html>

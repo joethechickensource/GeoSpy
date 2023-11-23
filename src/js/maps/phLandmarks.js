@@ -190,7 +190,7 @@ function initMap(data, status) {
           title: "True Location",
           draggable: false,
           icon: {
-            url: "../../../assets/imgs/3.png",
+            url: "./imgs/true.png",
           },
           anchor: new google.maps.Point(15, 15),
         });
