@@ -89,9 +89,15 @@ played = false;
 
 function generateRandomPoint(callback) {
   var sv = new google.maps.StreetViewService();
-  sv.getPanoramaByLocation(
-    new google.maps.LatLng(Math.random() * 180 - 90, Math.random() * 360 - 180),
-    6371,
+  sv.getPanorama(
+    {
+      location: {
+        lat: Math.random() * 180 - 90,
+        lng: Math.random() * 360 - 180,
+      },
+      radius: 100000, // Set a radius for the search (adjust as needed)
+      source: google.maps.StreetViewSource.OUTDOOR, // Specify StreetView source as OUTDOOR (Google car)
+    },
     callback
   );
 }
@@ -130,6 +136,13 @@ function initMap(data, status) {
       mapTypeControl: false,
     });
     map.setOptions({ draggableCursor: "crosshair" });
+    var noPoi = [
+      {
+        featureType: "poi",
+        stylers: [{ visibility: "off" }],
+      },
+    ];
+    map.setOptions({ styles: noPoi });
     const myinfowindow = new google.maps.InfoWindow({});
     var marker = new google.maps.Marker({
       map,
@@ -172,7 +185,7 @@ function initMap(data, status) {
       if (marked == true) {
         targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 3,
+          zoom: 10,
           maxZoom: 10,
           minZoom: 2,
           center: targetLatLng,
@@ -210,28 +223,52 @@ function initMap(data, status) {
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
-
-        lineCoordinates = [targetLatLng, guessLatLng];
-        linePath = new google.maps.Polyline({
-          path: lineCoordinates,
-          geodesic: true,
-          strokeColor: "#FF0000",
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-        });
-
-        levelComplete();
-        linePath.setMap(map);
-        played = true;
-        next.value = "Next";
-        var counter = points - 50;
-        if (points > 100) {
+        var counter = points - 250;
+        if (points > 250) {
           animateValue("playerScore", counter, points, 2800);
         } else {
           counter = points;
           animateValue("playerScore", counter, points, 2800);
         }
         tally.play();
+        var lineSymbol = {
+          path: "M 0,-1 0,1",
+          strokeOpacity: 0.5,
+          scale: 2,
+        };
+        lineCoordinates = [targetLatLng, guessLatLng];
+        linePath = new google.maps.Polyline({
+          path: lineCoordinates,
+          geodesic: false,
+          strokeOpacity: 0,
+          icons: [
+            {
+              icon: lineSymbol,
+              offset: "0",
+              repeat: "20px",
+            },
+          ],
+        });
+
+        levelComplete();
+        linePath.setMap(map);
+        // After creating the Polyline
+
+        // Get bounds for both markers
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(targetLatLng); // True location marker
+        bounds.extend(guessLatLng); // Guessed location marker
+
+        // Extend bounds to include the Polyline path
+        for (var i = 0; i < lineCoordinates.length; i++) {
+          bounds.extend(lineCoordinates[i]);
+        }
+
+        // Fit the map to the calculated bounds
+        map.fitBounds(bounds);
+        played = true;
+        next.value = "Next";
+
         // document.getElementById("playerScore").innerHTML = "" + counter;
 
         next.onclick = function () {

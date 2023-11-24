@@ -17,23 +17,7 @@ var round = 1;
 var tally = document.getElementById("audio-tally");
 //
 document.getElementById("mapname").innerHTML = "Philippines";
-function phMap(n) {
-  var location = [
-    [{ lat: 9.829708, lng: 124.1396756 }, { city: "Chocolate Hills" }],
-    [{ lat: 16.9239126, lng: 121.055836 }, { city: "Rice Terraces" }],
-    [{ lat: 14.0178494, lng: 120.9970307 }, { city: "Taal Lake" }],
-    [{ lat: 11.17217, lng: 125.0121195 }, { city: "Leyte Landing Monument" }],
-    [{ lat: 14.4451027, lng: 120.9069061 }, { city: "Aguinaldo Shrine" }],
-    [{ lat: 14.3895652, lng: 120.5991966 }, { city: "Corregidor Island" }],
-    [{ lat: 14.5941553, lng: 120.9705171 }, { city: "Fort Santiago" }],
-    [{ lat: 14.5816644, lng: 120.9768291 }, { city: "Luneta Park" }],
-    [{ lat: 14.5943746, lng: 120.9944327 }, { city: "Malacañan Palace" }],
-  ];
 
-  currentLoc = location[n];
-  currentCoords = currentLoc[0];
-  return currentCoords;
-}
 function levelComplete() {
   guess.style.height = "100vh";
   guess.style.width = "100vw";
@@ -103,41 +87,79 @@ function playagain() {
   defaultSetting();
   initMap();
 }
+function generateRandomPoint(callback) {
+  // Define the bounds for the Philippines
+  var philippinesBounds = {
+    north: 21.12,
+    south: 7.604649,
+    west: 115.48,
+    east: 126.61,
+  };
+
+  var randomLat =
+    philippinesBounds.south +
+    Math.random() * (philippinesBounds.north - philippinesBounds.south);
+  var randomLng =
+    philippinesBounds.west +
+    Math.random() * (philippinesBounds.east - philippinesBounds.west);
+
+  var sv = new google.maps.StreetViewService();
+  sv.getPanorama(
+    {
+      location: {
+        lat: randomLat,
+        lng: randomLng,
+      },
+      radius: 100000, // Set a radius for the search (adjust as needed)
+      source: google.maps.StreetViewSource.OUTDOOR, // Specify StreetView source as OUTDOOR (Google car)
+    },
+    callback
+  );
+}
 played = false;
 var marked = false;
+
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
-    var n = Math.floor(Math.random() * 9);
-    var ph = phMap(n);
-    currentCordsLat = ph.lat;
-    currentCordsLng = ph.lng;
-    overlay.style.display = "none";
-    ui.style.display = "flex";
-    console.clear();
-    const panorama = new google.maps.StreetViewPanorama(
-      document.getElementById("street-view"),
-      {
-        position: ph,
-        pov: {
-          heading: 0,
-          pitch: 0,
-          zoom: 0,
-        },
-        showRoadLabels: false,
-      }
-    );
+    if (status == google.maps.StreetViewStatus.OK) {
+      currentCordsLat = data.location.latLng.lat();
+      currentCordsLng = data.location.latLng.lng();
+      overlay.style.display = "none";
+      ui.style.display = "flex";
+      console.clear();
+      const panorama = new google.maps.StreetViewPanorama(
+        document.getElementById("street-view"),
+        {
+          position: data.location.latLng,
+          pov: {
+            heading: 0,
+            pitch: 0,
+            zoom: 0,
+          },
+          showRoadLabels: false,
+        }
+      );
+    } else generateRandomPoint(initMap);
 
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 5,
-      maxZoom: 20,
+      maxZoom: 10,
       minZoom: 5,
-      center: { lat: 13.467854269092662, lng: 122.42733472794815 },
+      center: { lat: 12.8797, lng: 121.774 },
       streetViewControl: false,
-      zoomControl: false,
+      showRoadLabels: false,
+      zoomControl: true,
       mapTypeControl: false,
     });
     map.setOptions({ draggableCursor: "crosshair" });
+    var noPoi = [
+      {
+        featureType: "poi",
+        stylers: [{ visibility: "off" }],
+      },
+    ];
+    map.setOptions({ styles: noPoi });
     const myinfowindow = new google.maps.InfoWindow({});
     var marker = new google.maps.Marker({
       map,
@@ -178,7 +200,7 @@ function initMap(data, status) {
     // TRUE LOCATION
     guessbtn.addEventListener("click", () => {
       if (marked == true) {
-        targetLatLng = ph;
+        targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 10,
           maxZoom: 10,
@@ -218,28 +240,54 @@ function initMap(data, status) {
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
-
-        lineCoordinates = [targetLatLng, guessLatLng];
-        linePath = new google.maps.Polyline({
-          path: lineCoordinates,
-          geodesic: true,
-          strokeColor: "#FF0000",
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-        });
-
-        levelComplete();
-        linePath.setMap(map);
-        var counter = points - 50;
-        if (points > 100) {
+        var counter = points - 250;
+        if (points > 250) {
           animateValue("playerScore", counter, points, 2800);
         } else {
           counter = points;
           animateValue("playerScore", counter, points, 2800);
         }
         tally.play();
+        var lineSymbol = {
+          path: "M 0,-1 0,1",
+          strokeOpacity: 0.5,
+          scale: 2,
+        };
+        lineCoordinates = [targetLatLng, guessLatLng];
+        linePath = new google.maps.Polyline({
+          path: lineCoordinates,
+          geodesic: false,
+          strokeOpacity: 0,
+          icons: [
+            {
+              icon: lineSymbol,
+              offset: "0",
+              repeat: "20px",
+            },
+          ],
+        });
+
+        levelComplete();
+        linePath.setMap(map);
+        // After creating the Polyline
+
+        // Get bounds for both markers
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(targetLatLng); // True location marker
+        bounds.extend(guessLatLng); // Guessed location marker
+
+        // Extend bounds to include the Polyline path
+        for (var i = 0; i < lineCoordinates.length; i++) {
+          bounds.extend(lineCoordinates[i]);
+        }
+
+        // Fit the map to the calculated bounds
+        map.fitBounds(bounds);
         played = true;
         next.value = "Next";
+
+        // document.getElementById("playerScore").innerHTML = "" + counter;
+
         next.onclick = function () {
           round++;
           playerScore += points;
