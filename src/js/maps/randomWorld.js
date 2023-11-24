@@ -89,17 +89,23 @@ played = false;
 
 function generateRandomPoint(callback) {
   var sv = new google.maps.StreetViewService();
-  sv.getPanorama(
-    {
-      location: {
-        lat: Math.random() * 180 - 90,
-        lng: Math.random() * 360 - 180,
+  try {
+    sv.getPanorama(
+      {
+        location: {
+          lat: Math.random() * 180 - 90,
+          lng: Math.random() * 360 - 180,
+        },
+        radius: 100000, // Set a radius for the search (adjust as needed)
+        source: google.maps.StreetViewSource.OUTDOOR, // Specify StreetView source as OUTDOOR (Google car)
       },
-      radius: 100000, // Set a radius for the search (adjust as needed)
-      source: google.maps.StreetViewSource.OUTDOOR, // Specify StreetView source as OUTDOOR (Google car)
-    },
-    callback
-  );
+      callback
+    );
+  } catch (error) {
+    // Handle the error here
+    console.error("Error occurred:", error);
+    // You might want to call the callback function with an error parameter here if needed
+  }
 }
 var marked = false;
 function initMap(data, status) {
@@ -224,16 +230,9 @@ function initMap(data, status) {
           points = 5000;
         }
         var counter = points - 100;
-        if (points > 100) {
-          animateValue("playerScore", counter, points, 2800);
-          tally.play();
-        } else if (points <= 0) {
-          document.getElementById("playerScore").innerHTML = "" + points;
-        } else {
-          counter = points;
-          animateValue("playerScore", counter, points, 2800);
-          tally.play();
-        }
+        animateScore(points, 4500);
+        tally.play();
+
         var lineSymbol = {
           path: "M 0,-1 0,1",
           strokeOpacity: 0.5,
@@ -285,18 +284,38 @@ function initMap(data, status) {
     window.location.reload();
   }
 }
-function animateValue(id, start, end, duration) {
-  if (start === end) return;
-  var range = end - start;
-  var current = start;
-  var increment = end > start ? 1 : -1;
-  var stepTime = Math.abs(Math.floor(duration / range));
-  var obj = document.getElementById(id);
-  var timer = setInterval(function () {
-    current += increment;
-    obj.innerHTML = current;
-    if (current == end) {
-      clearInterval(timer);
+// Function to load audio file and start animation
+function animateScore(targetScore, duration) {
+  const element = document.getElementById("playerScore");
+
+  // Create an audio element dynamically
+
+  let timePassed = 0;
+
+  const startAt = 0;
+
+  function animate() {
+    const percentComplete = Math.min(1, timePassed / duration);
+    const easedPercent = easeOutQuart(percentComplete);
+    const increment = Math.ceil(easedPercent * targetScore);
+
+    // Start the animation at 25% of targetScore
+    const currentIncrement = increment < startAt ? startAt : increment;
+
+    element.innerHTML =
+      currentIncrement < targetScore ? currentIncrement : targetScore;
+
+    // Play sound when incrementing
+
+    if (timePassed < duration) {
+      timePassed += 16;
+      requestAnimationFrame(animate);
     }
-  }, stepTime);
+  }
+
+  animate();
+}
+
+function easeOutQuart(t) {
+  return 1 - --t * t * t * t;
 }
