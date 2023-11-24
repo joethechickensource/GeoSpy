@@ -10,22 +10,13 @@ var next = document.getElementById("next");
 var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
-var currentCordsLat, currentCordsLng;
-var currentLoc, currentCoords;
 var round = 1;
 // AUDIOS
 var tally = document.getElementById("audio-tally");
 //
-document.getElementById("mapname").innerHTML = "Philippines";
+document.getElementById("mapname").innerHTML = "Philippines (Hard)";
 
-function levelComplete() {
-  guess.style.height = "100vh";
-  guess.style.width = "100vw";
-  guess.style.margin = "0";
-  tools.style.display = "none";
-  guessbtn.style.display = "none";
-  completeDiv.style.display = "flex";
-}
+var currentCordsLat, currentCordsLng;
 function checkDistance() {
   var lat1 = guessMarker.position.lat();
   var lng1 = guessMarker.position.lng();
@@ -48,7 +39,14 @@ function checkDistance() {
 function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
-
+function levelComplete() {
+  guess.style.height = "100vh";
+  guess.style.width = "100vw";
+  guess.style.margin = "0";
+  tools.style.display = "none";
+  guessbtn.style.display = "none";
+  completeDiv.style.display = "flex";
+}
 function showHide() {
   var x = document.getElementById("map");
   var tools = document.getElementById("tools");
@@ -87,6 +85,8 @@ function playagain() {
   defaultSetting();
   initMap();
 }
+played = false;
+
 function generateRandomPoint(callback) {
   // Define the bounds for the Philippines
   var philippinesBounds = {
@@ -116,9 +116,7 @@ function generateRandomPoint(callback) {
     callback
   );
 }
-played = false;
 var marked = false;
-
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
@@ -145,7 +143,7 @@ function initMap(data, status) {
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 5,
       maxZoom: 10,
-      minZoom: 5,
+      minZoom: 2,
       center: { lat: 12.8797, lng: 121.774 },
       streetViewControl: false,
       showRoadLabels: false,
@@ -235,19 +233,22 @@ function initMap(data, status) {
         var points = Math.round(
           5000 * 0.998036 * Math.exp((-10 * distance) / 1850)
         );
-        if (points < 0) {
+        if (points <= 0) {
           points = 0;
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
-        var counter = points - 250;
-        if (points > 250) {
+        var counter = points - 100;
+        if (points > 100) {
           animateValue("playerScore", counter, points, 2800);
+          tally.play();
+        } else if (points <= 0) {
+          document.getElementById("playerScore").innerHTML = "" + points;
         } else {
           counter = points;
           animateValue("playerScore", counter, points, 2800);
+          tally.play();
         }
-        tally.play();
         var lineSymbol = {
           path: "M 0,-1 0,1",
           strokeOpacity: 0.5,
@@ -285,8 +286,6 @@ function initMap(data, status) {
         map.fitBounds(bounds);
         played = true;
         next.value = "Next";
-
-        // document.getElementById("playerScore").innerHTML = "" + counter;
 
         next.onclick = function () {
           round++;

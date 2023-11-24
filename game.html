@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoSpy</title>
+    <link rel="stylesheet" href="./src/css/style.css?version=69" />
+    <link rel="icon" href="./assets/imgs/logo.png " />
+    <!-- jsFiddle will insert css and js -->
+  </head>
+  <body>
+    <div id="game">
+      <div id="ui">
+        <div id="playerScoreDiv">
+          <div class="scores">
+            <p class="ui-p-text">Map</p>
+            <h3 class="ui-h3-text" id="mapname">World</h3>
+          </div>
+          <div class="scores" id="scores-end">
+            <p class="ui-p-text">Round</p>
+            <h3 class="ui-h3-text" id="round">1<span>/5</span></h3>
+          </div>
+        </div>
+      </div>
+      <div id="overlay">
+        <div id="top-overlay">
+          <img src="./assets/videos/loading.gif" alt="" />
+        </div>
+      </div>
+
+      <div id="street-view"></div>
+      <button class="btn-tools" id="show" type="button" onclick="showHide()">
+        <img src="./assets/svg/expand.svg" alt="" srcset="" height="20" />
+      </button>
+      <div id="guess">
+        <div id="tools">
+          <button class="btn-tools" id="in" type="button" onclick="zoomIn();">
+            <img src="./assets/svg/zoomin.svg" alt="" srcset="" height="20" />
+          </button>
+          <button class="btn-tools" id="out" type="button" onclick="zoomOut()">
+            <img src="./assets/svg/zoomout.svg" alt="" srcset="" height="20" />
+          </button>
+          <button
+            class="btn-tools"
+            id="hide"
+            type="button"
+            onclick="showHide()"
+          >
+            <img src="./assets/svg/collapse.svg" alt="" srcset="" height="20" />
+          </button>
+        </div>
+        <div id="map-sat">
+          <div id="map"></div>
+          <div class="button-container" id="button-wrapper">
+            <button type="button" id="guess-btn">Guess</button>
+          </div>
+        </div>
+      </div>
+      <div id="completeLevel">
+        <div id="top-complete">
+          <h1 class="title black" id="lvlComplete">Level Complete</h1>
+          <div id="scoreDiv">
+            <h1 class="title font-game" id="playerScore"></h1>
+            <hr />
+            <p class="font-game" id="perfect">Max. 5000</p>
+          </div>
+          <h2 class="details"><span id="score"></span> <br />from Location</h2>
+        </div>
+        <div id="complete-overlay"></div>
+        <div id="bottom-complete">
+          <div class="wrapper-btn">
+            <div class="button-overlay"></div>
+            <button class="btn font-game" id="next">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

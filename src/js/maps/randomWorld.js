@@ -223,14 +223,17 @@ function initMap(data, status) {
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
-        var counter = points - 250;
-        if (points > 250) {
+        var counter = points - 100;
+        if (points > 100) {
           animateValue("playerScore", counter, points, 2800);
+          tally.play();
+        } else if (points <= 0) {
+          document.getElementById("playerScore").innerHTML = "" + points;
         } else {
           counter = points;
           animateValue("playerScore", counter, points, 2800);
+          tally.play();
         }
-        tally.play();
         var lineSymbol = {
           path: "M 0,-1 0,1",
           strokeOpacity: 0.5,
