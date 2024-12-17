@@ -141,7 +141,7 @@ function initMap(data, status) {
     } else generateRandomPoint(initMap);
 
     map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 7.5,
+      zoom: 2.5,
       maxZoom: 10,
       minZoom: 2,
       center: { lat: 45, lng: 5 }, 
@@ -231,7 +231,7 @@ function initMap(data, status) {
             Math.floor(distance) + " km";
         }
         var points = Math.round(
-          5000 * 0.998036 * Math.exp((-10 * distance) / 40000)
+          5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
         );
         if (points <= 0) {
           points = 0;

@@ -6,6 +6,7 @@ var init_menu = document.getElementById("init-menu");
 var playBtn = document.getElementById("play");
 var geoGuessr = document.getElementById("geoGuessr");
 var phBtn = document.getElementById("phBtn");
+var euBtn = document.getElementById("euBtn");
 var worldBtn = document.getElementById("worldBtn");
 audioBtn = document.getElementById("audio-button");
 audioCollect = document.getElementById("audio-collect");
