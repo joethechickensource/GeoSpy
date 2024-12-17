@@ -89,11 +89,11 @@ played = false;
 
 function generateRandomPoint(callback) {
   // Define the bounds for the europe
-  var europeBounds = {
-    north: 100,
-    south: 30,
-    west: -10,
-    east: 35,
+  var europeBounds = { // 37.08096381021437, 44.66221856961216 (Bottom Right)
+    north: 71.5,
+    south: 37.081,
+    west: -21.1,
+    east: 44.662,
   };
 
   var randomLat =
@@ -144,7 +144,7 @@ function initMap(data, status) {
       zoom: 5,
       maxZoom: 10,
       minZoom: 2,
-      center: { lat: 12.8797, lng: 121.774 },
+      center: { lat: 54.2905, lng: 11.781 }, 
       streetViewControl: false,
       showRoadLabels: false,
       zoomControl: true,
