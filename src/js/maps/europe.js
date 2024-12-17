@@ -144,7 +144,7 @@ function initMap(data, status) {
       zoom: 7.5,
       maxZoom: 10,
       minZoom: 2,
-      center: { lat: 54.2905, lng: 11.781 }, 
+      center: { lat: 45, lng: 5 }, 
       streetViewControl: false,
       showRoadLabels: false,
       zoomControl: true,
@@ -231,7 +231,7 @@ function initMap(data, status) {
             Math.floor(distance) + " km";
         }
         var points = Math.round(
-          5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
+          5000 * 0.998036 * Math.exp((-10 * distance) / 40000)
         );
         if (points <= 0) {
           points = 0;
