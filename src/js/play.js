@@ -59,6 +59,27 @@ function ph() {
 
   document.documentElement.firstChild.appendChild(mechanics);
 }
+function eu() {
+  var googleAPI;
+  var getLoc;
+  var mechanics;
+  menu.style.display = "none";
+  game.style.display = "block";
+  googleAPI = document.createElement("script");
+  googleAPI.src = "./src/js/mapsJavaScriptAPI.js";
+  googleAPI.async = true;
+  googleAPI.defer = true;
+  document.documentElement.lastChild.appendChild(googleAPI);
+
+  getLoc = document.createElement("script");
+  getLoc.src = "./src/js/maps/europe.js";
+  document.documentElement.lastChild.appendChild(getLoc);
+
+  mechanics = document.createElement("script");
+  mechanics.src = "./src/js/hide.js";
+
+  document.documentElement.firstChild.appendChild(mechanics);
+}
 playBtn.addEventListener(
   "mouseover",
   function () {
