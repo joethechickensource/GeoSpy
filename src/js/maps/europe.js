@@ -141,7 +141,7 @@ function initMap(data, status) {
     } else generateRandomPoint(initMap);
 
     map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 5,
+      zoom: 7.5,
       maxZoom: 10,
       minZoom: 2,
       center: { lat: 54.2905, lng: 11.781 }, 
