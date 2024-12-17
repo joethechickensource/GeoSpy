@@ -120,6 +120,7 @@ var marked = false;
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
+    document.getElementById("score").innerHTML = "" + score;
     if (status == google.maps.StreetViewStatus.OK) {
       currentCordsLat = data.location.latLng.lat();
       currentCordsLng = data.location.latLng.lng();
