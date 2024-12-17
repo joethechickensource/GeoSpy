@@ -231,7 +231,7 @@ function initMap(data, status) {
             Math.floor(distance) + " km";
         }
         var points = Math.round(
-          5000 * 0.998036 * Math.exp((-10 * distance) / 1850)
+          5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
         );
         if (points <= 0) {
           points = 0;
