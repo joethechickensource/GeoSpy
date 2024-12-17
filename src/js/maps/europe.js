@@ -92,8 +92,8 @@ function generateRandomPoint(callback) {
   var europeBounds = { // 37.08096381021437, 44.66221856961216 (Bottom Right)
     north: 71.5,
     south: 37.081,
-    west: -21.1,
-    east: 44.662,
+    west: -21,
+    east: 31.380,
   };
 
   var randomLat =
