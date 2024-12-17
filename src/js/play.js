@@ -7,6 +7,7 @@ var playBtn = document.getElementById("play");
 var geoGuessr = document.getElementById("geoGuessr");
 var phBtn = document.getElementById("phBtn");
 var euBtn = document.getElementById("euBtn");
+var euBtn = document.getElementById("naBtn");
 var worldBtn = document.getElementById("worldBtn");
 audioBtn = document.getElementById("audio-button");
 audioCollect = document.getElementById("audio-collect");
@@ -74,6 +75,27 @@ function eu() {
 
   getLoc = document.createElement("script");
   getLoc.src = "./src/js/maps/europe.js";
+  document.documentElement.lastChild.appendChild(getLoc);
+
+  mechanics = document.createElement("script");
+  mechanics.src = "./src/js/hide.js";
+
+  document.documentElement.firstChild.appendChild(mechanics);
+}
+function na() {
+  var googleAPI;
+  var getLoc;
+  var mechanics;
+  menu.style.display = "none";
+  game.style.display = "block";
+  googleAPI = document.createElement("script");
+  googleAPI.src = "./src/js/mapsJavaScriptAPI.js";
+  googleAPI.async = true;
+  googleAPI.defer = true;
+  document.documentElement.lastChild.appendChild(googleAPI);
+
+  getLoc = document.createElement("script");
+  getLoc.src = "./src/js/maps/uscanada.js";
   document.documentElement.lastChild.appendChild(getLoc);
 
   mechanics = document.createElement("script");
