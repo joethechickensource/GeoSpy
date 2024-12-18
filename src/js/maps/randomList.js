@@ -1,16 +1,3 @@
-let input = prompt("Enter your JSON here","");
-var cords;
-if (input == null || input == "") {
-  cords = [
-    {
-      lat: 38.88281653260932, 
-      lng: -77.18610624581545
-    }
-  ];
-} else {
-  cords = JSON.parse(input);
-}
-
 let panorama;
 var map;
 var overlay = document.getElementById("overlay");
@@ -28,6 +15,19 @@ var round = 1;
 var tally = document.getElementById("audio-tally");
 //
 document.getElementById("mapname").innerHTML = "Custom Map";
+
+let input = prompt("Enter your JSON here","");
+var cords;
+if (input == null || input == "") {
+  cords = [
+    {
+      lat: 38.88281653260932, 
+      lng: -77.18610624581545
+    }
+  ];
+} else {
+  cords = JSON.parse(input);
+}
 
 var currentCordsLat, currentCordsLng;
 function checkDistance() {
