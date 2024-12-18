@@ -107,7 +107,7 @@ played = false;
 
 function generateRandomPoint(callback) {
   var sv = new google.maps.StreetViewService();
-  var random = Math.floor(Math.random() * cords.length);
+  var random = Math.floor(Math.random() * (cords.length / 2));
   try {
     sv.getPanorama(
       {
