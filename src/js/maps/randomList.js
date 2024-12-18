@@ -103,8 +103,8 @@ function generateRandomPoint(callback) {
           lat: cords[Math.floor(Math.random() * cords.length)].lat,
           lng: cords[Math.floor(Math.random() * cords.length)].lng
         },
-        radius: 100000, // Set a radius for the search (adjust as needed)
-        source: google.maps.StreetViewSource.OUTDOOR, // Specify StreetView source as OUTDOOR (Google car)
+        radius: 1000, // Set a radius for the search (adjust as needed)
+        source: google.maps.StreetViewSource.DEFAULT, 
       },
       callback
     );
