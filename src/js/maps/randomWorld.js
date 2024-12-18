@@ -133,7 +133,7 @@ function initMap(data, status) {
 
     map = new google.maps.Map(document.getElementById("map"), {
       zoom: 2,
-      maxZoom: 10,
+      maxZoom: 25,
       minZoom: 2,
       center: { lat: 0, lng: 0 },
       streetViewControl: false,
@@ -192,7 +192,7 @@ function initMap(data, status) {
         targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 10,
-          maxZoom: 10,
+          maxZoom: 25,
           minZoom: 2,
           center: targetLatLng,
           streetViewControl: false,
