@@ -1,9 +1,15 @@
-var cords = [
-  {
-    lat: 38.88281653260932, 
-    lng: -77.18610624581545
-  }
-]
+var input = prompt("Enter your JSON here","");
+var cords;
+if (input == null || input == "") {
+  cords = [
+    {
+      lat: 38.88281653260932, 
+      lng: -77.18610624581545
+    }
+  ];
+} else {
+  cords = JSON.parse(input);
+}
 
 let panorama;
 var map;
