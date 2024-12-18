@@ -8,6 +8,7 @@ var geoGuessr = document.getElementById("geoGuessr");
 var phBtn = document.getElementById("phBtn");
 var euBtn = document.getElementById("euBtn");
 var naBtn = document.getElementById("naBtn");
+var rdBtn = document.getElementById("rdBtn");
 var worldBtn = document.getElementById("worldBtn");
 audioBtn = document.getElementById("audio-button");
 audioCollect = document.getElementById("audio-collect");
