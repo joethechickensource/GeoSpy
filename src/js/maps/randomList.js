@@ -1,4 +1,4 @@
-var input = prompt("Enter your JSON here","");
+let input = prompt("Enter your JSON here","");
 var cords;
 if (input == null || input == "") {
   cords = [
