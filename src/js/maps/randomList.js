@@ -27,6 +27,7 @@ if (input == null || input == "") {
   ];
 } else {
   cords = JSON.parse(input);
+  alert(cords);
 }
 
 var currentCordsLat, currentCordsLng;
