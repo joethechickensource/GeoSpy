@@ -26,7 +26,7 @@ if (input == null || input == "") {
     }
   ];
 } else {
-  cords = input;
+  cords = JSON.parse(input);
   alert(cords);
 }
 
