@@ -103,7 +103,7 @@ function generateRandomPoint(callback) {
           lat: cords[Math.floor(Math.random() * cords.length)].lat,
           lng: cords[Math.floor(Math.random() * cords.length)].lng
         },
-        radius: 1000, // Set a radius for the search (adjust as needed)
+        radius: 100, // Set a radius for the search (adjust as needed)
         source: google.maps.StreetViewSource.DEFAULT, 
       },
       callback
