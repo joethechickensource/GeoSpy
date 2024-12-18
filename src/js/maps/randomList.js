@@ -16,17 +16,22 @@ var tally = document.getElementById("audio-tally");
 //
 document.getElementById("mapname").innerHTML = "Custom Map";
 
-let input = prompt("Enter your JSON here","");
+let input = prompt("Enter your JSON array here","");
 var cords;
 if (input == null || input == "") {
   cords = [
-    {
-      lat: 38.88281653260932, 
-      lng: -77.18610624581545
-    }
+    38.88281653260932, 
+    -77.18610624581545
   ];
 } else {
   cords = JSON.parse(input);
+}
+
+function getCords(i) {
+    return {
+        lat: cords[i*2],
+        lng: cords[i*2 + 1]
+    }
 }
 
 var currentCordsLat, currentCordsLng;
@@ -102,12 +107,13 @@ played = false;
 
 function generateRandomPoint(callback) {
   var sv = new google.maps.StreetViewService();
+  var random = Math.floor(Math.random() * cords.length);
   try {
     sv.getPanorama(
       {
         location: {
-          lat: cords[Math.floor(Math.random() * cords.length)].lat,
-          lng: cords[Math.floor(Math.random() * cords.length)].lng
+          lat: getCords(random).lat,
+          lng: getCords(random).lng
         },
         radius: 100, // Set a radius for the search (adjust as needed)
         source: google.maps.StreetViewSource.DEFAULT, 
