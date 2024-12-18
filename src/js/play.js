@@ -40,6 +40,27 @@ function world() {
 
   document.documentElement.firstChild.appendChild(mechanics);
 }
+function rd() {
+  var googleAPI;
+  var getLoc;
+  var mechanics;
+  menu.style.display = "none";
+  game.style.display = "block";
+  googleAPI = document.createElement("script");
+  googleAPI.src = "./src/js/mapsJavaScriptAPI.js";
+  googleAPI.async = true;
+  googleAPI.defer = true;
+  document.documentElement.lastChild.appendChild(googleAPI);
+
+  getLoc = document.createElement("script");
+  getLoc.src = "./src/js/maps/randomList.js";
+  document.documentElement.lastChild.appendChild(getLoc);
+
+  mechanics = document.createElement("script");
+  mechanics.src = "./src/js/hide.js";
+
+  document.documentElement.firstChild.appendChild(mechanics);
+}
 function ph() {
   var googleAPI;
   var getLoc;
@@ -158,6 +179,7 @@ audioButtons(phBtn);
 audioButtons(worldBtn);
 audioButtons(euBtn);
 audioButtons(naBtn);
+audioButtons(rdBtn);
 
 function audioButtons(button) {
   button.addEventListener(
