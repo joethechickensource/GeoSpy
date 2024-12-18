@@ -7,7 +7,7 @@ var playBtn = document.getElementById("play");
 var geoGuessr = document.getElementById("geoGuessr");
 var phBtn = document.getElementById("phBtn");
 var euBtn = document.getElementById("euBtn");
-var euBtn = document.getElementById("naBtn");
+var naBtn = document.getElementById("naBtn");
 var worldBtn = document.getElementById("worldBtn");
 audioBtn = document.getElementById("audio-button");
 audioCollect = document.getElementById("audio-collect");
@@ -154,51 +154,35 @@ geoGuessr.addEventListener(
 
 // MENU CATEGORY AUDIO
 
-phBtn.addEventListener(
-  "mouseover",
-  function () {
-    audioBtn.play();
-  },
-  false
-);
+audioButtons(phBtn);
+audioButtons(worldBtn);
+audioButtons(euBtn);
+audioButtons(naBtn);
 
-phBtn.addEventListener(
-  "mouseleave",
-  function () {
-    audioBtn.pause();
-    audioBtn.currentTime = 0;
-  },
-  false
-);
+function audioButtons(button) {
+  button.addEventListener(
+    "mouseover",
+    function () {
+      audioBtn.play();
+    },
+    false
+  );
+  
+  button.addEventListener(
+    "mouseleave",
+    function () {
+      audioBtn.pause();
+      audioBtn.currentTime = 0;
+    },
+    false
+  );
+  button.addEventListener(
+    "click",
+    function () {
+      audioCollect.play();
+    },
+    false
+  );
+}
 
-phBtn.addEventListener(
-  "click",
-  function () {
-    audioCollect.play();
-  },
-  false
-);
 
-worldBtn.addEventListener(
-  "mouseover",
-  function () {
-    audioBtn.play();
-  },
-  false
-);
-
-worldBtn.addEventListener(
-  "mouseleave",
-  function () {
-    audioBtn.pause();
-    audioBtn.currentTime = 0;
-  },
-  false
-);
-worldBtn.addEventListener(
-  "click",
-  function () {
-    audioCollect.play();
-  },
-  false
-);
