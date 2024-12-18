@@ -115,7 +115,7 @@ function generateRandomPoint(callback) {
           lat: getCords(random).lat,
           lng: getCords(random).lng
         },
-        radius: 100, // Set a radius for the search (adjust as needed)
+        radius: 250, // Set a radius for the search (adjust as needed)
         source: google.maps.StreetViewSource.DEFAULT, 
       },
       callback
