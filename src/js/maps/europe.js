@@ -11,6 +11,7 @@ var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
 var round = 1;
+var totalScore = 0;
 // AUDIOS
 var tally = document.getElementById("audio-tally");
 //
@@ -120,7 +121,7 @@ var marked = false;
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
-    document.getElementById("score").innerHTML = "" + score;
+    document.getElementById("score").innerHTML = "" + totalScore;
     if (status == google.maps.StreetViewStatus.OK) {
       currentCordsLat = data.location.latLng.lat();
       currentCordsLng = data.location.latLng.lng();
@@ -234,6 +235,7 @@ function initMap(data, status) {
         var points = Math.round(
           5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
         );
+        totalScore += points;
         if (points <= 0) {
           points = 0;
         } else if (Math.floor(distance) <= 0) {
