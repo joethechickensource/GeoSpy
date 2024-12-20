@@ -11,6 +11,7 @@ var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
 var round = 1;
+var done = 0;
 // AUDIOS
 var tally = document.getElementById("audio-tally");
 //
@@ -198,6 +199,8 @@ function initMap(data, status) {
 
     // TRUE LOCATION
     guessbtn.addEventListener("click", () => {
+      if (done != round) {
+        done = round;
       if (marked == true) {
         targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
@@ -288,6 +291,7 @@ function initMap(data, status) {
           playagain();
         };
       }
+    }
     });
   } else {
     window.location.reload();

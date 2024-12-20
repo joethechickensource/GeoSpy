@@ -11,6 +11,7 @@ var tools = document.getElementById("tools");
 var playerScore = 0;
 var distanceScore = 5000;
 var round = 1;
+var done = 0;
 var totalScore = 0;
 // AUDIOS
 var tally = document.getElementById("audio-tally");
@@ -199,95 +200,98 @@ function initMap(data, status) {
 
     // TRUE LOCATION
     guessbtn.addEventListener("click", () => {
-      if (marked == true) {
-        targetLatLng = data.location.latLng;
-        map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 10,
-          maxZoom: 25,
-          minZoom: 2,
-          center: targetLatLng,
-          streetViewControl: false,
-          zoomControl: false,
-          mapTypeControl: false,
-        });
-        targetMarker = new google.maps.Marker({
-          position: targetLatLng,
-          title: "True Location",
-          draggable: false,
-          icon: {
-            url: "assets/imgs/targetMarker.png?raw=true",
-          },
-          anchor: new google.maps.Point(15, 15),
-        });
-        marker = new google.maps.Marker({
-          position: guessLatLng,
-          map,
-        });
-        targetMarker.setMap(map);
-        distance = checkDistance();
-        if (Math.floor(distance) == 0) {
-          var yards = Math.round(distance * 1093);
-          document.getElementById("score").innerHTML = yards + " yards";
-        } else {
-          document.getElementById("score").innerHTML =
-            Math.floor(distance) + " km";
-        }
-        var points = Math.round(
-          5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
-        );
-        if (points <= 0) {
-          points = 0;
-        } else if (Math.floor(distance) <= 0) {
-          points = 5000;
-        }
-        totalScore += points;
-        var counter = points - 100;
-        animateScore(points, 4500);
-        tally.play();
-
-        var lineSymbol = {
-          path: "M 0,-1 0,1",
-          strokeOpacity: 0.5,
-          scale: 2,
-        };
-        lineCoordinates = [targetLatLng, guessLatLng];
-        linePath = new google.maps.Polyline({
-          path: lineCoordinates,
-          geodesic: false,
-          strokeOpacity: 0,
-          icons: [
-            {
-              icon: lineSymbol,
-              offset: "0",
-              repeat: "20px",
+      if (done != round) {
+        done = round;
+        if (marked == true) {
+          targetLatLng = data.location.latLng;
+          map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            maxZoom: 25,
+            minZoom: 2,
+            center: targetLatLng,
+            streetViewControl: false,
+            zoomControl: false,
+            mapTypeControl: false,
+          });
+          targetMarker = new google.maps.Marker({
+            position: targetLatLng,
+            title: "True Location",
+            draggable: false,
+            icon: {
+              url: "assets/imgs/targetMarker.png?raw=true",
             },
-          ],
-        });
+            anchor: new google.maps.Point(15, 15),
+          });
+          marker = new google.maps.Marker({
+            position: guessLatLng,
+            map,
+          });
+          targetMarker.setMap(map);
+          distance = checkDistance();
+          if (Math.floor(distance) == 0) {
+            var yards = Math.round(distance * 1093);
+            document.getElementById("score").innerHTML = yards + " yards";
+          } else {
+            document.getElementById("score").innerHTML =
+              Math.floor(distance) + " km";
+          }
+          var points = Math.round(
+            5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
+          );
+          if (points <= 0) {
+            points = 0;
+          } else if (Math.floor(distance) <= 0) {
+            points = 5000;
+          }
+          totalScore += points;
+          var counter = points - 100;
+          animateScore(points, 4500);
+          tally.play();
 
-        levelComplete();
-        linePath.setMap(map);
-        // After creating the Polyline
+          var lineSymbol = {
+            path: "M 0,-1 0,1",
+            strokeOpacity: 0.5,
+            scale: 2,
+          };
+          lineCoordinates = [targetLatLng, guessLatLng];
+          linePath = new google.maps.Polyline({
+            path: lineCoordinates,
+            geodesic: false,
+            strokeOpacity: 0,
+            icons: [
+              {
+                icon: lineSymbol,
+                offset: "0",
+                repeat: "20px",
+              },
+            ],
+          });
 
-        // Get bounds for both markers
-        var bounds = new google.maps.LatLngBounds();
-        bounds.extend(targetLatLng); // True location marker
-        bounds.extend(guessLatLng); // Guessed location marker
+          levelComplete();
+          linePath.setMap(map);
+          // After creating the Polyline
 
-        // Extend bounds to include the Polyline path
-        for (var i = 0; i < lineCoordinates.length; i++) {
-          bounds.extend(lineCoordinates[i]);
+          // Get bounds for both markers
+          var bounds = new google.maps.LatLngBounds();
+          bounds.extend(targetLatLng); // True location marker
+          bounds.extend(guessLatLng); // Guessed location marker
+
+          // Extend bounds to include the Polyline path
+          for (var i = 0; i < lineCoordinates.length; i++) {
+            bounds.extend(lineCoordinates[i]);
+          }
+
+          // Fit the map to the calculated bounds
+          map.fitBounds(bounds);
+          played = true;
+          next.value = "Next";
+
+          next.onclick = function () {
+            round++;
+            playerScore += points;
+            playagain();
+          };
         }
-
-        // Fit the map to the calculated bounds
-        map.fitBounds(bounds);
-        played = true;
-        next.value = "Next";
-
-        next.onclick = function () {
-          round++;
-          playerScore += points;
-          playagain();
-        };
       }
     });
   } else {
