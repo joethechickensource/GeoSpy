@@ -112,7 +112,7 @@ var marked = false;
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
-    document.getElementById("scoreDisplay").innerHTML = "" + totalScore.toLocaleString();
+    document.getElementById("scoreDisplay").innerHTML = "" + playerScore.toLocaleString();
     if (status == google.maps.StreetViewStatus.OK) {
       currentCordsLat = data.location.latLng.lat();
       currentCordsLng = data.location.latLng.lng();
@@ -191,8 +191,6 @@ function initMap(data, status) {
     // TRUE LOCATION
     guessbtn.addEventListener("click", () => {
       if (marked == true) {
-        if (done != round) {
-          done = round;
         targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 10,
@@ -233,7 +231,6 @@ function initMap(data, status) {
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
-        totalScore += points;
         var counter = points - 100;
         animateScore(points, 4500);
         tally.play();
@@ -283,7 +280,6 @@ function initMap(data, status) {
           playerScore += points;
           playagain();
         };
-      }
       }
     });
   } else {
