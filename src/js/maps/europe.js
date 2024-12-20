@@ -121,7 +121,7 @@ var marked = false;
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
-    document.getElementById("score").innerHTML = "" + totalScore;
+    document.getElementById("score").innerHTML = "" + totalScore.toLocaleString();
     if (status == google.maps.StreetViewStatus.OK) {
       currentCordsLat = data.location.latLng.lat();
       currentCordsLng = data.location.latLng.lng();
@@ -235,12 +235,12 @@ function initMap(data, status) {
         var points = Math.round(
           5000 * 0.998036 * Math.exp((-10 * distance) / 15000)
         );
-        totalScore += points;
         if (points <= 0) {
           points = 0;
         } else if (Math.floor(distance) <= 0) {
           points = 5000;
         }
+        totalScore += points;
         var counter = points - 100;
         animateScore(points, 4500);
         tally.play();
