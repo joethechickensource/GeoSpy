@@ -328,6 +328,9 @@ hr {
   min-width: fit-content;
   align-items: end;
 }
+#hide {
+  visibility: hidden;
+}
 /* MENU CSS */
 
 #menu-overlay {
