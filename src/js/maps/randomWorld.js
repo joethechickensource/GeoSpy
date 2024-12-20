@@ -111,7 +111,7 @@ var marked = false;
 function initMap(data, status) {
   if (round <= 5) {
     document.getElementById("round").innerHTML = "" + round + "/5";
-    document.getElementById("score").innerHTML = "" + totalScore.toLocaleString();
+    document.getElementById("scoreDisplay").innerHTML = "" + totalScore.toLocaleString();
     if (status == google.maps.StreetViewStatus.OK) {
       currentCordsLat = data.location.latLng.lat();
       currentCordsLng = data.location.latLng.lng();
