@@ -190,9 +190,9 @@ function initMap(data, status) {
 
     // TRUE LOCATION
     guessbtn.addEventListener("click", () => {
-      if (done != round) {
-        done = round;
       if (marked == true) {
+        if (done != round) {
+          done = round;
         targetLatLng = data.location.latLng;
         map = new google.maps.Map(document.getElementById("map"), {
           zoom: 10,
